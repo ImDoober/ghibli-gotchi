@@ -42,15 +42,10 @@ div div p {
 
 .image{
     filter: drop-shadow(0px 0px 10px
-    black1);
+    black);
 }
 
 .candies{
     height: 100px;
     width: 100px;
-}
-
-button:hover{
-    color: black;
-    transition: all 500ms ease;
 }
