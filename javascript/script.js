@@ -1,7 +1,9 @@
 const feed = document.getElementById ("btn-feed");
 const work = document.getElementById ("btn-work");
 const music = document.getElementById ("btn-music");
-const songs = ["Elevator-music.mp3", "Jazz-music.mp3", "Rock-music.mp3",];
+const backgroundmusic = document.getElementById ("btn-audio")
+const backgroundAudio = document. querySelector ("audio")
+const songsArray = ["elevator-music.mp3", "jazz-music.mp3", "rock-music.mp3"]
 
 let sprite = document.querySelector (".image");
 let spriteNeutral = true;
@@ -9,8 +11,6 @@ let spriteCandies = 1;
 let timesFed = 0;
 let timesWorked = 0;
 let candyAmount = document.querySelector("p")
-let randomCandies = Math.random () * 3;
-randomCandies = Math.round (randomCandies);
 
 function feeding(){
     if (spriteNeutral == true || spriteCandies >= 1){
@@ -35,7 +35,7 @@ function working(){
     if ( spriteNeutral == true || timesWorked <= 2){
         sprite.src = "images/sprite-work.png";
         spriteNeutral = false;
-        spriteCandies = spriteCandies + randomCandies;
+        spriteCandies = spriteCandies + Math.ceil(Math.random () * 2);
         candyAmount.textContent = spriteCandies;
         timesWorked++;
     } else if (timesWorked >= 2) {
@@ -53,12 +53,29 @@ function listening(){
         sprite.src = "images/sprite-dance.png";
         spriteNeutral = false;
         timesWorked--;
+        playRandomSong();
     } else {
         sprite.src = "images/sprite-neutral.png";
         spriteNeutral = true;
     }
 }
 
+function playRandomSong(){
+    const randomsong = Math.floor(Math.random() * 3);
+    const song = new Audio (songsArray[randomsong]);
+    song.play();
+}
+
 music.addEventListener('click', listening);
 work.addEventListener('click', working);
 feed.addEventListener('click', feeding);
+backgroundmusic.addEventListener('click', () => {
+    if (backgroundAudio.paused) {
+      backgroundAudio.volume = 0.2;
+      backgroundAudio.play();
+      backgroundmusic.src = "images/audio-icon.png"
+    } else {
+      backgroundAudio.pause();
+      backgroundmusic.src = "images/mute-icon.png"
+    }
+  });
